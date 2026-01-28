@@ -1,0 +1,97 @@
+<div id="view-tasks" class="view-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Görev Yönetimi</h1>
+            <div class="flex space-x-2">
+                <button onclick="openCreateTaskModal()" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors">
+                    <i class="fas fa-plus mr-2"></i> Yeni Görev
+                </button>
+                <button onclick="showModal('project-create-modal')" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors">
+                    <i class="fas fa-project-diagram mr-2"></i> Yeni Proje
+                </button>
+            </div>
+        </div>
+
+        <!-- Kanban Board / List Toggle -->
+        <div class="flex justify-end mb-4 space-x-2">
+            <button onclick="switchTaskView('list')" id="btn-task-view-list" class="p-2 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600">
+                <i class="fas fa-list"></i>
+            </button>
+            <button onclick="switchTaskView('kanban')" id="btn-task-view-kanban" class="p-2 rounded-md bg-white dark:bg-gray-800 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700">
+                <i class="fas fa-columns"></i>
+            </button>
+        </div>
+
+        <!-- Task List View -->
+        <div id="task-view-list" class="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-md">
+            <!-- Filters -->
+            <div class="p-4 border-b border-gray-200 dark:border-gray-700 flex gap-4">
+                <select id="task-filter-status" onchange="filterTasks()" class="rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white sm:text-sm p-2 border">
+                    <option value="all">Tüm Durumlar</option>
+                    <option value="todo">Yapılacak</option>
+                    <option value="in_progress">Devam Eden</option>
+                    <option value="completed">Tamamlandı</option>
+                    <option value="blocked">Bloke</option>
+                </select>
+                <select id="task-filter-priority" onchange="filterTasks()" class="rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white sm:text-sm p-2 border">
+                    <option value="all">Tüm Öncelikler</option>
+                    <option value="high">Yüksek</option>
+                    <option value="medium">Orta</option>
+                    <option value="low">Düşük</option>
+                </select>
+                <input type="text" id="task-search" oninput="filterTasks()" placeholder="Görev ara..." class="flex-1 rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white sm:text-sm p-2 border">
+            </div>
+
+            <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700" id="tasks-list-container">
+                <!-- Dynamic Content -->
+            </ul>
+        </div>
+
+        <!-- Kanban View -->
+        <div id="task-view-kanban" class="hidden flex space-x-4 overflow-x-auto pb-4 h-[calc(100vh-200px)]">
+            <!-- Todo Column -->
+            <div class="flex-shrink-0 w-80 bg-gray-100 dark:bg-gray-800 rounded-lg flex flex-col">
+                <div class="p-3 font-medium text-gray-700 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+                    <span>Yapılacak</span>
+                    <span class="bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs px-2 py-1 rounded-full" id="count-todo">0</span>
+                </div>
+                <div class="flex-1 overflow-y-auto p-2 space-y-2" id="kanban-todo" ondrop="dropTask(event, 'todo')" ondragover="allowDrop(event)">
+                    <!-- Items -->
+                </div>
+            </div>
+
+            <!-- In Progress Column -->
+            <div class="flex-shrink-0 w-80 bg-blue-50 dark:bg-gray-800 rounded-lg flex flex-col">
+                <div class="p-3 font-medium text-blue-700 dark:text-blue-300 border-b border-blue-100 dark:border-gray-700 flex justify-between items-center">
+                    <span>Devam Eden</span>
+                    <span class="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 text-xs px-2 py-1 rounded-full" id="count-in_progress">0</span>
+                </div>
+                <div class="flex-1 overflow-y-auto p-2 space-y-2" id="kanban-in_progress" ondrop="dropTask(event, 'in_progress')" ondragover="allowDrop(event)">
+                    <!-- Items -->
+                </div>
+            </div>
+
+            <!-- Completed Column -->
+            <div class="flex-shrink-0 w-80 bg-green-50 dark:bg-gray-800 rounded-lg flex flex-col">
+                <div class="p-3 font-medium text-green-700 dark:text-green-300 border-b border-green-100 dark:border-gray-700 flex justify-between items-center">
+                    <span>Tamamlandı</span>
+                    <span class="bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 text-xs px-2 py-1 rounded-full" id="count-completed">0</span>
+                </div>
+                <div class="flex-1 overflow-y-auto p-2 space-y-2" id="kanban-completed" ondrop="dropTask(event, 'completed')" ondragover="allowDrop(event)">
+                    <!-- Items -->
+                </div>
+            </div>
+
+            <!-- Blocked Column -->
+            <div class="flex-shrink-0 w-80 bg-red-50 dark:bg-gray-800 rounded-lg flex flex-col">
+                <div class="p-3 font-medium text-red-700 dark:text-red-300 border-b border-red-100 dark:border-gray-700 flex justify-between items-center">
+                    <span>Bloke</span>
+                    <span class="bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-300 text-xs px-2 py-1 rounded-full" id="count-blocked">0</span>
+                </div>
+                <div class="flex-1 overflow-y-auto p-2 space-y-2" id="kanban-blocked" ondrop="dropTask(event, 'blocked')" ondragover="allowDrop(event)">
+                    <!-- Items -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

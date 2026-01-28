@@ -1,0 +1,104 @@
+<div class="view-section py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Saha Yönetimi</h1>
+                <p class="text-gray-500 dark:text-gray-400">Saha ekipleri ve görev bölgeleri</p>
+            </div>
+            <div class="flex gap-2 mt-4 md:mt-0">
+                <button onclick="showModal('zone-modal'); document.getElementById('zone-form').reset();" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+                    <i class="fas fa-map-marker-alt"></i> Bölge Ekle
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Team List -->
+            <div class="lg:col-span-1 space-y-6">
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="p-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 flex justify-between items-center">
+                        <h3 class="font-semibold text-gray-900 dark:text-white">Saha Ekipleri</h3>
+                        <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full" id="team-count">0</span>
+                    </div>
+                    <div class="p-4" id="team-list">
+                        <!-- Dynamic -->
+                        <p class="text-center text-gray-500 text-sm">Yükleniyor...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map / Zone List -->
+            <div class="lg:col-span-2 space-y-6">
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <div class="p-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 flex justify-between items-center">
+                        <h3 class="font-semibold text-gray-900 dark:text-white">Görev Bölgeleri</h3>
+                        <div class="flex gap-2">
+                             <button class="text-gray-400 hover:text-indigo-600"><i class="fas fa-filter"></i></button>
+                        </div>
+                    </div>
+                    
+                    <!-- Placeholder Map -->
+                    <div class="bg-gray-100 dark:bg-gray-900 h-64 flex items-center justify-center border-b border-gray-200 dark:border-gray-700">
+                        <div class="text-center text-gray-400">
+                            <i class="fas fa-map text-4xl mb-2"></i>
+                            <p>Harita Görünümü (Temsili)</p>
+                        </div>
+                    </div>
+
+                    <!-- Zone Table -->
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                            <thead class="bg-white dark:bg-gray-800">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Bölge Adı</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Sorumlu</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Durum</th>
+                                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700" id="zones-table">
+                                <tr><td colspan="4" class="px-6 py-4 text-center text-gray-500">Yükleniyor...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Zone Modal -->
+<div id="zone-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+    <div class="relative top-20 mx-auto p-5 border w-96 md:w-[500px] shadow-lg rounded-md bg-white dark:bg-gray-800">
+        <div class="mt-3">
+            <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white mb-4">Bölge Tanımla</h3>
+            <form id="zone-form">
+                <input type="hidden" id="zone-id">
+                <div class="mb-4">
+                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Bölge Adı</label>
+                    <input type="text" id="zone-name" class="shadow border rounded w-full py-2 px-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Sorumlu Kişi</label>
+                    <input type="text" id="zone-manager" class="shadow border rounded w-full py-2 px-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="İsim soyad">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Hedef / Kota</label>
+                    <input type="number" id="zone-target" class="shadow border rounded w-full py-2 px-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="Örn: Ziyaret sayısı">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Durum</label>
+                    <select id="zone-status" class="shadow border rounded w-full py-2 px-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        <option value="active">Aktif</option>
+                        <option value="completed">Tamamlandı</option>
+                        <option value="pending">Beklemede</option>
+                    </select>
+                </div>
+                <div class="flex justify-end gap-2 mt-6">
+                    <button type="button" onclick="closeModal('zone-modal')" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">İptal</button>
+                    <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

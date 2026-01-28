@@ -1,0 +1,183 @@
+<div id="view-inventory" class="view-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Stok & Envanter</h1>
+            <div class="flex space-x-2">
+                <button onclick="showModal('inventory-item-modal')" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors">
+                    <i class="fas fa-box mr-2"></i> Ürün Ekle
+                </button>
+                <button onclick="showModal('inventory-movement-modal')" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors">
+                    <i class="fas fa-exchange-alt mr-2"></i> Stok Hareketi
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-full bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300">
+                        <i class="fas fa-boxes text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Toplam Ürün</p>
+                        <p class="text-2xl font-semibold text-gray-900 dark:text-white" id="inv-stat-total">-</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-full bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300">
+                        <i class="fas fa-coins text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Stok Değeri</p>
+                        <p class="text-2xl font-semibold text-gray-900 dark:text-white" id="inv-stat-value">₺0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-full bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-300">
+                        <i class="fas fa-exclamation-triangle text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Kritik Stok</p>
+                        <p class="text-2xl font-semibold text-gray-900 dark:text-white" id="inv-stat-low">-</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300">
+                        <i class="fas fa-truck text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Hareketler (Ay)</p>
+                        <p class="text-2xl font-semibold text-gray-900 dark:text-white" id="inv-stat-movements">-</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden mb-6">
+            <div class="border-b border-gray-200 dark:border-gray-700">
+                <nav class="-mb-px flex" aria-label="Tabs">
+                    <button id="tab-inv-items" onclick="switchInventoryTab('items')" class="inv-tab border-indigo-500 text-indigo-600 whitespace-nowrap py-4 px-6 border-b-2 font-medium text-sm w-1/4 text-center hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-list mr-2"></i> Ürün Listesi
+                    </button>
+                    <button id="tab-inv-movements" onclick="switchInventoryTab('movements')" class="inv-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-6 border-b-2 font-medium text-sm w-1/4 text-center hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-history mr-2"></i> Hareket Geçmişi
+                    </button>
+                    <button id="tab-inv-categories" onclick="switchInventoryTab('categories')" class="inv-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-6 border-b-2 font-medium text-sm w-1/4 text-center hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-tags mr-2"></i> Kategoriler
+                    </button>
+                    <button id="tab-inv-suppliers" onclick="switchInventoryTab('suppliers')" class="inv-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-6 border-b-2 font-medium text-sm w-1/4 text-center hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-truck mr-2"></i> Tedarikçiler
+                    </button>
+                </nav>
+            </div>
+
+            <div class="p-6">
+                <!-- Items Content -->
+                <div id="inv-content-items" class="space-y-6">
+                    <div class="flex gap-4 mb-4">
+                        <input type="text" id="inv-search" placeholder="Ürün adı veya kodu ara..." class="flex-1 rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white sm:text-sm p-2 border">
+                        <select id="inv-category-filter" class="rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white sm:text-sm p-2 border">
+                            <option value="">Tüm Kategoriler</option>
+                        </select>
+                        <button onclick="filterInventoryItems()" class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600">
+                            <i class="fas fa-filter"></i> Filtrele
+                        </button>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700" id="inv-items-table">
+                            <thead class="bg-gray-50 dark:bg-gray-700">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Ürün</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Kategori</th>
+                                    <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Miktar</th>
+                                    <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Birim Fiyat</th>
+                                    <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Toplam Değer</th>
+                                    <th scope="col" class="relative px-6 py-3"><span class="sr-only">İşlemler</span></th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                <!-- Dynamic Content -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Movements Content -->
+                <div id="inv-content-movements" class="hidden space-y-6">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700" id="inv-movements-table">
+                            <thead class="bg-gray-50 dark:bg-gray-700">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Tarih</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Ürün</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">İşlem</th>
+                                    <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Miktar</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Kullanıcı</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                <!-- Dynamic Content -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Categories Content -->
+                <div id="inv-content-categories" class="hidden space-y-6">
+                    <div class="flex justify-end mb-4">
+                        <button onclick="showModal('inventory-category-modal')" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
+                            <i class="fas fa-plus"></i> Yeni Kategori
+                        </button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700" id="inv-categories-table">
+                            <thead class="bg-gray-50 dark:bg-gray-700">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Kategori Adı</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Açıklama</th>
+                                    <th scope="col" class="relative px-6 py-3"><span class="sr-only">İşlemler</span></th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                <!-- Dynamic Content -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Suppliers Content -->
+                <div id="inv-content-suppliers" class="hidden space-y-6">
+                    <div class="flex justify-end mb-4">
+                        <button onclick="showModal('inventory-supplier-modal')" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
+                            <i class="fas fa-plus"></i> Yeni Tedarikçi
+                        </button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700" id="inv-suppliers-table">
+                            <thead class="bg-gray-50 dark:bg-gray-700">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Firma Adı</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">İletişim</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Telefon</th>
+                                    <th scope="col" class="relative px-6 py-3"><span class="sr-only">İşlemler</span></th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                <!-- Dynamic Content -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

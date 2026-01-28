@@ -1,0 +1,209 @@
+<div class="view-section py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Welcome & Quick Actions -->
+        <div class="mb-8 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900 dark:text-white" id="welcome-message">Hoş Geldiniz</h1>
+                <p class="text-gray-500 dark:text-gray-400 mt-2" id="current-date">Bugün</p>
+            </div>
+            <div class="flex gap-2">
+                 <button onclick="showModal('task-modal')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+                    <i class="fas fa-plus"></i> Görev
+                </button>
+                <button onclick="showModal('announcement-modal')" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+                    <i class="fas fa-bullhorn"></i> Duyuru
+                </button>
+            </div>
+        </div>
+
+        <!-- Quick Stats Cards -->
+        <div class="mb-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-all cursor-pointer group" onclick="window.location.hash='#tasks'">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="p-2 bg-indigo-50 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 rounded-lg group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                        <i class="fas fa-tasks text-lg"></i>
+                    </div>
+                    <span class="text-xs font-semibold text-gray-400 dark:text-gray-500">GÖREVLER</span>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white" id="stat-tasks-total">-</h3>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Toplam Görev</p>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-all cursor-pointer group" onclick="window.location.hash='#tasks'">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="p-2 bg-green-50 dark:bg-green-900/50 text-green-600 dark:text-green-400 rounded-lg group-hover:bg-green-600 group-hover:text-white transition-colors">
+                        <i class="fas fa-check-circle text-lg"></i>
+                    </div>
+                    <span class="text-xs font-semibold text-gray-400 dark:text-gray-500">TAMAMLANAN</span>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white" id="stat-tasks-completed">-</h3>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Başarılı Görev</p>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-all cursor-pointer group" onclick="window.location.hash='#tasks'">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="p-2 bg-blue-50 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                        <i class="fas fa-spinner text-lg"></i>
+                    </div>
+                    <span class="text-xs font-semibold text-gray-400 dark:text-gray-500">DEVAM EDEN</span>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white" id="stat-tasks-inprogress">-</h3>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Aktif Çalışma</p>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-all cursor-pointer group" onclick="window.location.hash='#tasks'">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="p-2 bg-red-50 dark:bg-red-900/50 text-red-600 dark:text-red-400 rounded-lg group-hover:bg-red-600 group-hover:text-white transition-colors">
+                        <i class="fas fa-fire text-lg"></i>
+                    </div>
+                    <span class="text-xs font-semibold text-gray-400 dark:text-gray-500">GECİKEN</span>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white" id="stat-tasks-overdue">-</h3>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Acil Müdahale</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Main Content Area: Tasks & Events -->
+            <div class="lg:col-span-2 space-y-8">
+                
+                <!-- Recent Tasks Table -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between bg-gray-50 dark:bg-gray-800/50">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white"><i class="fas fa-list-ul mr-2 text-gray-400"></i>Son Görevler</h3>
+                        <button onclick="window.location.hash='#tasks'" class="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 transition-colors">Tümünü gör</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                            <thead class="bg-white dark:bg-gray-800">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Görev</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Durum</th>
+                                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Bitiş</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700" id="dashboard-tasks-table">
+                                <!-- Dynamic Content -->
+                                <tr><td colspan="3" class="px-6 py-4 text-center text-sm text-gray-500">Yükleniyor...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                 <!-- Upcoming Events -->
+                 <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between bg-gray-50 dark:bg-gray-800/50">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white"><i class="fas fa-calendar-alt mr-2 text-gray-400"></i>Yaklaşan Etkinlikler</h3>
+                        <button onclick="window.location.hash='#calendar'" class="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 transition-colors">Takvimi gör</button>
+                    </div>
+                    <div class="p-6">
+                        <div class="space-y-4" id="dashboard-events">
+                            <!-- Dynamic Content -->
+                            <p class="text-center text-sm text-gray-500">Yükleniyor...</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Sidebar: Announcements & Quick Links -->
+            <div class="space-y-8">
+                <!-- Recent Announcements -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-800/50">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white"><i class="fas fa-bullhorn mr-2 text-gray-400"></i>Duyurular</h3>
+                        <button onclick="window.location.hash='#announcements'" class="text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">Tümü</button>
+                    </div>
+                    <div class="p-6">
+                        <div class="space-y-4" id="dashboard-announcements">
+                            <!-- Dynamic Content -->
+                            <p class="text-center text-sm text-gray-500">Yükleniyor...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shortcuts / Module Links -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Hızlı Erişim</h3>
+                    </div>
+                    <div class="p-4 grid grid-cols-2 gap-4">
+                        <button onclick="window.location.hash='#inventory'" class="p-3 rounded-lg border border-gray-100 dark:border-gray-700 hover:border-indigo-100 hover:bg-indigo-50 dark:hover:bg-gray-700 transition-all flex flex-col items-center gap-2 group">
+                            <i class="fas fa-boxes text-purple-500 text-xl group-hover:scale-110 transition-transform"></i>
+                            <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Envanter</span>
+                        </button>
+                        <button onclick="window.location.hash='#crm'" class="p-3 rounded-lg border border-gray-100 dark:border-gray-700 hover:border-indigo-100 hover:bg-indigo-50 dark:hover:bg-gray-700 transition-all flex flex-col items-center gap-2 group">
+                            <i class="fas fa-users text-blue-500 text-xl group-hover:scale-110 transition-transform"></i>
+                            <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Müşteriler</span>
+                        </button>
+                        <button onclick="window.location.hash='#hr'" class="p-3 rounded-lg border border-gray-100 dark:border-gray-700 hover:border-indigo-100 hover:bg-indigo-50 dark:hover:bg-gray-700 transition-all flex flex-col items-center gap-2 group">
+                            <i class="fas fa-user-tie text-orange-500 text-xl group-hover:scale-110 transition-transform"></i>
+                            <span class="text-sm font-medium text-gray-600 dark:text-gray-300">İK</span>
+                        </button>
+                        <button onclick="window.location.hash='#accounting'" class="p-3 rounded-lg border border-gray-100 dark:border-gray-700 hover:border-indigo-100 hover:bg-indigo-50 dark:hover:bg-gray-700 transition-all flex flex-col items-center gap-2 group">
+                            <i class="fas fa-coins text-green-500 text-xl group-hover:scale-110 transition-transform"></i>
+                            <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Finans</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Task Modal -->
+<div id="task-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white dark:bg-gray-800">
+        <div class="mt-3">
+            <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white" id="modal-title">Yeni Görev Ekle</h3>
+            <div class="mt-2 px-7 py-3">
+                <form id="dashboard-task-form">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="task-title">Başlık</label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700 dark:border-gray-600 dark:text-white" id="task-title" type="text" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="task-due-date">Bitiş Tarihi</label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700 dark:border-gray-600 dark:text-white" id="task-due-date" type="datetime-local" required>
+                    </div>
+                    <div class="flex justify-end gap-2">
+                        <button type="button" onclick="closeModal('task-modal')" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">İptal</button>
+                        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Kaydet</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Announcement Modal -->
+<div id="announcement-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white dark:bg-gray-800">
+        <div class="mt-3">
+            <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white">Yeni Duyuru Ekle</h3>
+            <div class="mt-2 px-7 py-3">
+                <form id="dashboard-announcement-form">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="ann-title">Başlık</label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700 dark:border-gray-600 dark:text-white" id="ann-title" type="text" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="ann-content">İçerik</label>
+                        <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700 dark:border-gray-600 dark:text-white" id="ann-content" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="ann-priority">Öncelik</label>
+                        <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline dark:bg-gray-700 dark:border-gray-600 dark:text-white" id="ann-priority">
+                            <option value="normal">Normal</option>
+                            <option value="high">Yüksek</option>
+                        </select>
+                    </div>
+                    <div class="flex justify-end gap-2">
+                        <button type="button" onclick="closeModal('announcement-modal')" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">İptal</button>
+                        <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">Yayınla</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

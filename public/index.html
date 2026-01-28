@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="tr" class="h-full bg-gray-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoreFly - Intranet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: 'var(--color-primary)',
+                        secondary: 'var(--color-secondary)',
+                        accent: 'var(--color-accent)',
+                        gray: {
+                            900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563',
+                            500: '#6b7280', 400: '#9ca3af', 300: '#d1d5db', 200: '#e5e7eb',
+                            100: '#f3f4f6', 50: '#f9fafb',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .dark ::-webkit-scrollbar-thumb { background: #475569; }
+        .dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+        
+        /* Transitions */
+        body, .bg-white, .text-gray-900, nav, aside {
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+    </style>
+</head>
+<body class="h-full overflow-hidden flex bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex-shrink-0 hidden md:flex flex-col transition-all duration-300" id="sidebar">
+        <div class="h-16 flex items-center px-6 border-b border-gray-200 dark:border-gray-700">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">C</div>
+                <span class="text-xl font-bold text-gray-900 dark:text-white">CoreFly</span>
+            </div>
+        </div>
+
+        <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-1" id="sidebar-menu">
+            <!-- Menu Items Loaded Dynamically -->
+            <div class="animate-pulse space-y-3">
+                <div class="h-8 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                <div class="h-8 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
+                <div class="h-8 bg-gray-200 dark:bg-gray-700 rounded w-5/6"></div>
+            </div>
+        </nav>
+
+        <div class="p-4 border-t border-gray-200 dark:border-gray-700">
+            <div class="flex items-center gap-3">
+                <img src="/images/default-avatar.svg" alt="User" id="sidebar-user-avatar" class="w-10 h-10 rounded-full bg-gray-200">
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-gray-900 dark:text-white truncate" id="sidebar-user-name">Yükleniyor...</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 truncate" id="sidebar-user-role">...</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-gray-600 bg-opacity-75 z-40 hidden md:hidden" onclick="document.getElementById('sidebar').classList.add('hidden'); document.getElementById('sidebar-overlay').classList.add('hidden');"></div>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+        <!-- Header -->
+        <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 h-16 flex items-center justify-between px-4 sm:px-6 lg:px-8 shadow-sm z-10">
+            <div class="flex items-center">
+                <button id="mobile-menu-btn" class="md:hidden text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 focus:outline-none mr-4">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                <h1 id="page-title" class="text-xl font-semibold text-gray-900 dark:text-white">Dashboard</h1>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 focus:outline-none">
+                    <i class="fas fa-moon text-xl dark:hidden"></i>
+                    <i class="fas fa-sun text-xl hidden dark:block text-yellow-400"></i>
+                </button>
+
+                <!-- Notifications -->
+                <div class="relative">
+                    <button id="notification-btn" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 focus:outline-none relative">
+                        <i class="fas fa-bell text-xl"></i>
+                        <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white dark:ring-gray-800"></span>
+                    </button>
+                    <!-- Notification Dropdown -->
+                    <div id="notification-dropdown" class="absolute right-0 z-10 mt-2 w-80 origin-top-right rounded-md bg-white dark:bg-gray-700 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden">
+                        <div class="px-4 py-2 border-b border-gray-200 dark:border-gray-600">
+                            <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Bildirimler</h3>
+                        </div>
+                        <div class="max-h-64 overflow-y-auto">
+                            <!-- Empty State -->
+                            <div class="px-4 py-4 text-center text-gray-500 dark:text-gray-400 text-sm">
+                                Yeni bildiriminiz yok.
+                            </div>
+                            <!-- Example Notification Item (Hidden/Dynamic) -->
+                            <!--
+                            <a href="#" class="block px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
+                                <p class="text-sm font-medium text-gray-900 dark:text-white">Yeni Duyuru</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Sistem bakım çalışması hakkında...</p>
+                            </a>
+                            -->
+                        </div>
+                        <div class="border-t border-gray-200 dark:border-gray-600">
+                            <a href="#notifications" class="block px-4 py-2 text-sm text-center text-indigo-600 dark:text-indigo-400 hover:text-indigo-800">Tümünü Gör</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Dropdown -->
+                <div class="relative ml-3">
+                    <div>
+                        <button type="button" class="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                            <span class="sr-only">Open user menu</span>
+                            <img class="h-8 w-8 rounded-full bg-gray-200 object-cover" src="/images/default-avatar.svg" alt="" id="header-user-avatar">
+                            <span class="hidden ml-2 text-sm font-medium text-gray-700 dark:text-gray-200 lg:block" id="header-user-name">...</span>
+                            <i class="fas fa-chevron-down ml-2 text-xs text-gray-500 hidden lg:block"></i>
+                        </button>
+                    </div>
+                    <div class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white dark:bg-gray-700 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1" id="user-dropdown">
+                        <a href="#settings" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600" role="menuitem" tabindex="-1" id="user-menu-item-0">Profilim</a>
+                        <a href="#settings" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600" role="menuitem" tabindex="-1" id="user-menu-item-1">Ayarlar</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600" role="menuitem" tabindex="-1" id="logout-btn">Çıkış Yap</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- App Container -->
+        <main id="app" class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 dark:bg-gray-900 p-4 sm:p-6 lg:p-8 relative">
+            <!-- Dynamic Content Loaded Here -->
+            <div class="flex items-center justify-center h-full">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Global Modal Container -->
+    <div id="modal-container"></div>
+
+    <!-- Main Script -->
+    <script type="module" src="/js/app.js"></script>
+</body>
+</html>

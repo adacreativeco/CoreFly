@@ -1,0 +1,9 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use CoreFly\Database\Migrator;
+
+$migrator = new Migrator(__DIR__ . '/../database/migrations');
+$migrator->run();

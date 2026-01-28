@@ -1,0 +1,107 @@
+<div class="view-section py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Takvim</h1>
+                <p class="text-gray-500 dark:text-gray-400">Etkinlik ve planlarınızı yönetin</p>
+            </div>
+            <button onclick="showModal('event-modal'); document.getElementById('event-form').reset(); document.getElementById('event-id').value='';" class="mt-4 md:mt-0 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+                <i class="fas fa-plus"></i> Yeni Etkinlik
+            </button>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-6">
+            <!-- Sidebar: Mini Calendar & Upcoming -->
+            <div class="w-full lg:w-80 space-y-6">
+                <!-- Upcoming List -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="p-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
+                        <h3 class="font-semibold text-gray-900 dark:text-white">Yaklaşan Etkinlikler</h3>
+                    </div>
+                    <div class="p-4 space-y-4" id="upcoming-events-list">
+                        <!-- Dynamic -->
+                        <p class="text-center text-gray-500 text-sm">Yükleniyor...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Calendar Grid -->
+            <div class="flex-1 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                <!-- Calendar Header -->
+                <div class="p-4 flex items-center justify-between border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
+                    <button id="prev-month" class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full transition-colors">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <h2 id="current-month-label" class="text-lg font-bold text-gray-900 dark:text-white uppercase">
+                        <!-- OCAK 2024 -->
+                    </h2>
+                    <button id="next-month" class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full transition-colors">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <!-- Weekday Headers -->
+                <div class="grid grid-cols-7 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
+                    <div class="py-2 text-center text-xs font-semibold text-gray-500 uppercase">Pzt</div>
+                    <div class="py-2 text-center text-xs font-semibold text-gray-500 uppercase">Sal</div>
+                    <div class="py-2 text-center text-xs font-semibold text-gray-500 uppercase">Çar</div>
+                    <div class="py-2 text-center text-xs font-semibold text-gray-500 uppercase">Per</div>
+                    <div class="py-2 text-center text-xs font-semibold text-gray-500 uppercase">Cum</div>
+                    <div class="py-2 text-center text-xs font-semibold text-gray-500 uppercase">Cmt</div>
+                    <div class="py-2 text-center text-xs font-semibold text-gray-500 uppercase">Paz</div>
+                </div>
+
+                <!-- Days Grid -->
+                <div id="calendar-grid" class="grid grid-cols-7 auto-rows-fr h-[600px] overflow-y-auto">
+                    <!-- Dynamic Days -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Event Modal -->
+<div id="event-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+    <div class="relative top-20 mx-auto p-5 border w-96 md:w-[500px] shadow-lg rounded-md bg-white dark:bg-gray-800">
+        <div class="mt-3">
+            <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white mb-4" id="modal-title">Etkinlik Detayları</h3>
+            <form id="event-form">
+                <input type="hidden" id="event-id">
+                <div class="mb-4">
+                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Başlık</label>
+                    <input type="text" id="event-title" class="shadow border rounded w-full py-2 px-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required>
+                </div>
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Başlangıç</label>
+                        <input type="datetime-local" id="event-start" class="shadow border rounded w-full py-2 px-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Bitiş</label>
+                        <input type="datetime-local" id="event-end" class="shadow border rounded w-full py-2 px-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Açıklama</label>
+                    <textarea id="event-desc" rows="3" class="shadow border rounded w-full py-2 px-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white"></textarea>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Tür</label>
+                    <select id="event-type" class="shadow border rounded w-full py-2 px-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        <option value="meeting">Toplantı</option>
+                        <option value="task">Görev</option>
+                        <option value="reminder">Hatırlatma</option>
+                        <option value="other">Diğer</option>
+                    </select>
+                </div>
+                <div class="flex justify-between mt-6">
+                    <button type="button" id="btn-delete-event" class="hidden px-4 py-2 bg-red-100 text-red-600 rounded-md hover:bg-red-200">Sil</button>
+                    <div class="flex gap-2 ml-auto">
+                        <button type="button" onclick="closeModal('event-modal')" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">İptal</button>
+                        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Kaydet</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

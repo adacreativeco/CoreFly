@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="tr" class="h-full bg-gray-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoreFly - Giriş Yap</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #3F51B5 0%, #7C4DFF 100%); }
+        .glass-effect { backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.1); }
+    </style>
+</head>
+<body class="h-full">
+    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 gradient-bg">
+        <div class="max-w-md w-full space-y-8">
+            <!-- Logo ve Başlık -->
+            <div class="text-center">
+                <div class="mx-auto h-16 w-16 flex items-center justify-center rounded-full bg-white/20 glass-effect">
+                    <i class="fas fa-building text-2xl text-white"></i>
+                </div>
+                <h2 class="mt-6 text-3xl font-bold text-white">
+                    CoreFly
+                </h2>
+                <p class="mt-2 text-sm text-white/80">
+                    Kurumsal İntranet Sistemine Hoş Geldiniz
+                </p>
+            </div>
+
+            <!-- Giriş Formu -->
+            <div class="bg-white/95 backdrop-blur-lg rounded-2xl shadow-2xl p-8 space-y-6">
+                <form id="loginForm" class="space-y-6">
+                    <div class="space-y-4">
+                        <div>
+                            <label for="login" class="block text-sm font-medium text-gray-700">
+                                E-posta veya Kullanıcı Adı
+                            </label>
+                            <div class="mt-1 relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-user text-gray-400"></i>
+                                </div>
+                                <input id="login" name="login" type="text" required 
+                                       class="appearance-none relative block w-full pl-10 pr-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200"
+                                       placeholder="E-posta adresiniz veya kullanıcı adınız">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="password" class="block text-sm font-medium text-gray-700">
+                                Şifre
+                            </label>
+                            <div class="mt-1 relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-lock text-gray-400"></i>
+                                </div>
+                                <input id="password" name="password" type="password" required 
+                                       class="appearance-none relative block w-full pl-10 pr-10 pr-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200"
+                                       placeholder="Şifreniz">
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                    <button type="button" id="togglePassword" class="text-gray-400 hover:text-gray-600 focus:outline-none">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <input id="remember" name="remember" type="checkbox" 
+                                   class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                            <label for="remember" class="ml-2 block text-sm text-gray-700">
+                                Beni Hatırla
+                            </label>
+                        </div>
+                        
+                        <div class="text-sm">
+                            <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500 transition duration-200">
+                                Şifremi Unuttum?
+                            </a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button type="submit" id="loginButton"
+                                class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-200 transform hover:scale-[1.02]">
+                            <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                                <i class="fas fa-sign-in-alt text-indigo-300 group-hover:text-indigo-200"></i>
+                            </span>
+                            Giriş Yap
+                        </button>
+                    </div>
+                </form>
+
+                <!-- 2FA Modal -->
+                <div id="twoFactorModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+                    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+                        <div class="mt-3 text-center">
+                            <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-indigo-100">
+                                <i class="fas fa-shield-alt text-indigo-600 text-xl"></i>
+                            </div>
+                            <h3 class="text-lg leading-6 font-medium text-gray-900 mt-2">İki Faktörlü Doğrulama</h3>
+                            <div class="mt-2 px-7 py-3">
+                                <p class="text-sm text-gray-500">
+                                    Lütfen doğrulama uygulamanızdaki 6 haneli kodu girin.
+                                </p>
+                            </div>
+                            <form id="twoFactorForm" class="mt-4">
+                                <input type="hidden" id="sessionToken" name="session_token">
+                                <div class="mb-4">
+                                    <input type="text" id="twoFactorCode" name="code" 
+                                           class="w-full px-3 py-2 text-center text-lg font-mono tracking-widest border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                           placeholder="123456" maxlength="6" pattern="[0-9]{6}" required>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button type="submit" 
+                                            class="w-full px-4 py-2 bg-indigo-600 text-white text-base font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200">
+                                        Doğrula
+                                    </button>
+                                    <button type="button" id="cancel2FA" 
+                                            class="w-full px-4 py-2 bg-gray-300 text-gray-700 text-base font-medium rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-200">
+                                        İptal
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hata Mesajı -->
+                <div id="errorMessage" class="hidden bg-red-50 border border-red-200 rounded-lg p-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-exclamation-circle text-red-400"></i>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-red-800">Hata</h3>
+                            <div class="mt-1 text-sm text-red-700" id="errorText"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Başarı Mesajı -->
+                <div id="successMessage" class="hidden bg-green-50 border border-green-200 rounded-lg p-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-check-circle text-green-400"></i>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-green-800">Başarılı</h3>
+                            <div class="mt-1 text-sm text-green-700" id="successText"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alt Bilgi -->
+            <div class="text-center">
+                <p class="text-sm text-white/70">
+                    © 2024 CoreFly. Tüm hakları saklıdır.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Şifre göster/gizle
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = this.querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        });
+
+        // Form gönderme
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const loginButton = document.getElementById('loginButton');
+            const loginButtonText = loginButton.innerHTML;
+            
+            // Butonu yükleme durumuna getir
+            loginButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Giriş Yapılıyor...';
+            loginButton.disabled = true;
+            
+            // Mesajları temizle
+            hideMessages();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams(data).toString()
+                });
+                
+                const text = await response.text();
+                let result = {};
+                try {
+                    result = text ? JSON.parse(text) : {};
+                } catch (e) {
+                    showError('Sunucu yanıtı geçersiz');
+                    return;
+                }
+                
+                if (response.ok && result.success) {
+                    if (result.data.two_factor_required) {
+                        // 2FA modalını göster
+                        document.getElementById('sessionToken').value = result.data.session_token;
+                        document.getElementById('twoFactorModal').classList.remove('hidden');
+                        document.getElementById('twoFactorCode').focus();
+                    } else {
+                        // Giriş başarılı, token'ı sakla ve yönlendir
+                        localStorage.setItem('auth_token', result.data.token);
+                        localStorage.setItem('refresh_token', result.data.refresh_token);
+                        localStorage.setItem('user_data', JSON.stringify(result.data.user));
+                        
+                        showSuccess('Giriş başarılı! Yönlendiriliyorsunuz...');
+                        
+                        setTimeout(() => {
+                            // Update local storage to match SPA api.js expectations
+                            localStorage.setItem('token', result.data.token);
+                            localStorage.setItem('refresh_token', result.data.refresh_token);
+                            localStorage.setItem('user', JSON.stringify(result.data.user));
+                            
+                            // Redirect to SPA root with hash
+                            window.location.href = '/#dashboard';
+                        }, 1500);
+                    }
+                } else {
+                    showError(result.message || 'Giriş başarısız');
+                }
+            } catch (error) {
+                showError('Bağlantı hatası: ' + error.message);
+            } finally {
+                // Butonu eski haline getir
+                loginButton.innerHTML = loginButtonText;
+                loginButton.disabled = false;
+            }
+        });
+
+        // 2FA doğrulama
+        document.getElementById('twoFactorForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const code = document.getElementById('twoFactorCode').value;
+            const sessionToken = document.getElementById('sessionToken').value;
+            
+            if (code.length !== 6) {
+                showError('Lütfen 6 haneli kodu girin');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/auth/verify-2fa', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({
+                        code: code,
+                        session_token: sessionToken
+                    }).toString()
+                });
+                
+                const text = await response.text();
+                let result = {};
+                try {
+                    result = text ? JSON.parse(text) : {};
+                } catch (e) {
+                    showError('Sunucu yanıtı geçersiz');
+                    return;
+                }
+                
+                if (response.ok && result.success) {
+                    // Token'ı sakla ve yönlendir
+                    localStorage.setItem('token', result.data.token);
+                    localStorage.setItem('refresh_token', result.data.refresh_token);
+                    localStorage.setItem('user', JSON.stringify(result.data.user));
+                    
+                    document.getElementById('twoFactorModal').classList.add('hidden');
+                    showSuccess('Doğrulama başarılı! Yönlendiriliyorsunuz...');
+                    
+                    setTimeout(() => {
+                        window.location.href = '/#dashboard';
+                    }, 1500);
+                } else {
+                    showError(result.message || 'Doğrulama başarısız');
+                }
+            } catch (error) {
+                showError('Bağlantı hatası: ' + error.message);
+            }
+        });
+
+        // 2FA iptal
+        document.getElementById('cancel2FA').addEventListener('click', function() {
+            document.getElementById('twoFactorModal').classList.add('hidden');
+            hideMessages();
+        });
+
+        // Hata mesajı göster
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+            errorText.textContent = message;
+            errorDiv.classList.remove('hidden');
+            
+            setTimeout(() => {
+                errorDiv.classList.add('hidden');
+            }, 5000);
+        }
+
+        // Başarı mesajı göster
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            const successText = document.getElementById('successText');
+            successText.textContent = message;
+            successDiv.classList.remove('hidden');
+            
+            setTimeout(() => {
+                successDiv.classList.add('hidden');
+            }, 5000);
+        }
+
+        // Mesajları gizle
+        function hideMessages() {
+            document.getElementById('errorMessage').classList.add('hidden');
+            document.getElementById('successMessage').classList.add('hidden');
+        }
+
+        // Enter tuşu ile 2FA kodu gönder
+        document.getElementById('twoFactorCode').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('twoFactorForm').dispatchEvent(new Event('submit'));
+            }
+        });
+
+        // Sayfa yüklendiğinde login input'a odaklan
+        window.addEventListener('load', function() {
+            document.getElementById('login').focus();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<div id="view-settings" class="view-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Ayarlar</h1>
+        </div>
+
+        <!-- Settings Tabs -->
+        <div class="border-b border-gray-200 dark:border-gray-700 mb-6">
+            <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                <button onclick="switchSettingsTab('account')" id="tab-settings-account" class="border-indigo-500 text-indigo-600 dark:text-indigo-400 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                    Hesap Ayarları
+                </button>
+                <button onclick="switchSettingsTab('system')" id="tab-settings-system" class="border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                    Sistem Ayarları
+                </button>
+                <button onclick="switchSettingsTab('tenant')" id="tab-settings-tenant" class="border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                    Kurum Ayarları
+                </button>
+            </nav>
+        </div>
+
+        <!-- Account Settings Tab -->
+        <div id="settings-content-account" class="space-y-6">
+            <div class="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg">
+                <div class="px-4 py-5 sm:px-6 border-b border-gray-200 dark:border-gray-700">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white">Profil Bilgileri</h3>
+                    <p class="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-400">Kişisel bilgilerinizi ve tercihlerinizi güncelleyin.</p>
+                </div>
+                <div class="px-4 py-5 sm:p-6">
+                    <form onsubmit="handleProfileUpdate(event)" class="space-y-6">
+                        <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                            <div class="sm:col-span-3">
+                                <label for="profile-first-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Ad</label>
+                                <div class="mt-1">
+                                    <input type="text" name="first_name" id="profile-first-name" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white p-2 border">
+                                </div>
+                            </div>
+
+                            <div class="sm:col-span-3">
+                                <label for="profile-last-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Soyad</label>
+                                <div class="mt-1">
+                                    <input type="text" name="last_name" id="profile-last-name" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white p-2 border">
+                                </div>
+                            </div>
+
+                            <div class="sm:col-span-4">
+                                <label for="profile-email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">E-posta Adresi</label>
+                                <div class="mt-1">
+                                    <input type="email" name="email" id="profile-email" disabled class="shadow-sm block w-full sm:text-sm border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed p-2 border">
+                                </div>
+                            </div>
+
+                            <div class="sm:col-span-3">
+                                <label for="profile-phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Telefon</label>
+                                <div class="mt-1">
+                                    <input type="text" name="phone" id="profile-phone" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white p-2 border">
+                                </div>
+                            </div>
+                            
+                            <div class="sm:col-span-6">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Profil Fotoğrafı URL</label>
+                                <div class="mt-1 flex items-center space-x-4">
+                                    <img id="profile-avatar-preview" class="inline-block h-12 w-12 rounded-full" src="/images/default-avatar.svg" alt="">
+                                    <input type="text" name="avatar" id="profile-avatar" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white p-2 border" placeholder="https://...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end">
+                            <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                Kaydet
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg">
+                <div class="px-4 py-5 sm:px-6 border-b border-gray-200 dark:border-gray-700">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white">Güvenlik</h3>
+                    <p class="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-400">Şifrenizi ve güvenlik ayarlarınızı yönetin.</p>
+                </div>
+                <div class="px-4 py-5 sm:p-6">
+                    <form onsubmit="handlePasswordChange(event)" class="space-y-6">
+                        <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                            <div class="sm:col-span-4">
+                                <label for="current-password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Mevcut Şifre</label>
+                                <div class="mt-1">
+                                    <input type="password" name="current_password" id="current-password" required class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white p-2 border">
+                                </div>
+                            </div>
+
+                            <div class="sm:col-span-4">
+                                <label for="new-password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Yeni Şifre</label>
+                                <div class="mt-1">
+                                    <input type="password" name="new_password" id="new-password" required class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white p-2 border">
+                                </div>
+                            </div>
+
+                            <div class="sm:col-span-4">
+                                <label for="confirm-password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Yeni Şifre (Tekrar)</label>
+                                <div class="mt-1">
+                                    <input type="password" name="confirm_password" id="confirm-password" required class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-700 dark:text-white p-2 border">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end">
+                            <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                Şifreyi Güncelle
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Settings Tab -->
+        <div id="settings-content-system" class="hidden space-y-6">
+            <div class="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg">
+                <div class="px-4 py-5 sm:px-6 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+                    <div>
+                        <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white">Departmanlar</h3>
+                        <p class="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-400">Şirket departmanlarını yönetin.</p>
+                    </div>
+                    <button onclick="openModal('department-modal')" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+                        <i class="fas fa-plus mr-2"></i> Departman Ekle
+                    </button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700" id="departments-table">
+                        <thead class="bg-gray-50 dark:bg-gray-700">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Departman Adı</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Yönetici</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Personel Sayısı</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg">
+                <div class="px-4 py-5 sm:px-6 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+                    <div>
+                        <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white">Roller ve İzinler</h3>
+                        <p class="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-400">Kullanıcı rollerini ve yetkilerini yönetin.</p>
+                    </div>
+                    <button onclick="openModal('role-modal')" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+                        <i class="fas fa-plus mr-2"></i> Rol Ekle
+                    </button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700" id="roles-table">
+                        <thead class="bg-gray-50 dark:bg-gray-700">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Rol Adı</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Açıklama</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tenant Settings Tab -->
+        <div id="settings-content-tenant" class="hidden space-y-6">
+            <div class="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg">
+                <div class="px-4 py-5 sm:px-6 border-b border-gray-200 dark:border-gray-700">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white">Görünüm Ayarları</h3>
+                    <p class="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-400">Sistem renklerini ve temasını özelleştirin.</p>
+                </div>
+                <div class="px-4 py-5 sm:p-6">
+                    <form onsubmit="handleTenantSettings(event)" class="space-y-6">
+                        <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-3">
+                            <div>
+                                <label for="settings-primary-color" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Ana Renk (Primary)</label>
+                                <div class="mt-1 flex items-center space-x-2">
+                                    <input type="color" name="primary_color" id="settings-primary-color" class="h-10 w-20 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm p-1">
+                                    <button type="button" onclick="resetColor('primary')" class="text-sm text-gray-500 hover:text-gray-700">Varsayılan</button>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="settings-secondary-color" class="block text-sm font-medium text-gray-700 dark:text-gray-300">İkincil Renk (Secondary)</label>
+                                <div class="mt-1 flex items-center space-x-2">
+                                    <input type="color" name="secondary_color" id="settings-secondary-color" class="h-10 w-20 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm p-1">
+                                    <button type="button" onclick="resetColor('secondary')" class="text-sm text-gray-500 hover:text-gray-700">Varsayılan</button>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="settings-accent-color" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Vurgu Rengi (Accent)</label>
+                                <div class="mt-1 flex items-center space-x-2">
+                                    <input type="color" name="accent_color" id="settings-accent-color" class="h-10 w-20 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm p-1">
+                                    <button type="button" onclick="resetColor('accent')" class="text-sm text-gray-500 hover:text-gray-700">Varsayılan</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-end">
+                            <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                Ayarları Kaydet
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

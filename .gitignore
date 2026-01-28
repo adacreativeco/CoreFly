@@ -1,0 +1,45 @@
+# Dependencies
+/vendor/
+/node_modules/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Storage & Cache
+/storage/logs/*
+/storage/cache/*
+/storage/sessions/*
+!/storage/logs/.gitkeep
+!/storage/cache/.gitkeep
+!/storage/sessions/.gitkeep
+
+# Database
+*.sqlite
+*.db
+/storage/database/*
+!/storage/database/.gitkeep
+
+# IDE & OS
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Debug & Test files
+debug_*.php
+check_*.php
+test_*.php
+reset_*.php
+fix_*.php
+unlock_*.php
+clean_*.php
+token.txt
+
+# Misc
+*.log
+*.bak
+.trae/

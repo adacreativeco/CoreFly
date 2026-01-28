@@ -1,0 +1,184 @@
+<div id="view-politics" class="view-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Siyasi Parti Yönetimi</h1>
+            <div class="flex space-x-2">
+                <button onclick="showModal('politics-voter-modal')" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">
+                    <i class="fas fa-user-plus mr-2"></i> Seçmen Ekle
+                </button>
+                <button onclick="showModal('politics-box-modal')" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">
+                    <i class="fas fa-box-open mr-2"></i> Sandık Ekle
+                </button>
+                <button onclick="showModal('politics-volunteer-modal')" class="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700">
+                    <i class="fas fa-hands-helping mr-2"></i> Gönüllü Ekle
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300">
+                        <i class="fas fa-users text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Toplam Seçmen</p>
+                        <p class="text-2xl font-semibold text-gray-900 dark:text-white" id="politics-stat-total">-</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-full bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300">
+                        <i class="fas fa-check-circle text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Hedef Kitle</p>
+                        <p class="text-2xl font-semibold text-gray-900 dark:text-white" id="politics-stat-target">%0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-full bg-yellow-100 dark:bg-yellow-900 text-yellow-600 dark:text-yellow-300">
+                        <i class="fas fa-question-circle text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Kararsız</p>
+                        <p class="text-2xl font-semibold text-gray-900 dark:text-white" id="politics-stat-undecided">%0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+                <div class="flex items-center">
+                    <div class="p-3 rounded-full bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-300">
+                        <i class="fas fa-times-circle text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Rakip</p>
+                        <p class="text-2xl font-semibold text-gray-900 dark:text-white" id="politics-stat-opponent">%0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden mb-6">
+            <div class="border-b border-gray-200 dark:border-gray-700">
+                <nav class="-mb-px flex" aria-label="Tabs">
+                    <button id="tab-politics-analytics" onclick="switchPoliticsTab('analytics')" class="politics-tab border-indigo-500 text-indigo-600 whitespace-nowrap py-4 px-6 border-b-2 font-medium text-sm w-1/4 text-center hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-chart-pie mr-2"></i> Analiz
+                    </button>
+                    <button id="tab-politics-voters" onclick="switchPoliticsTab('voters')" class="politics-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-6 border-b-2 font-medium text-sm w-1/4 text-center hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-users mr-2"></i> Seçmenler
+                    </button>
+                    <button id="tab-politics-boxes" onclick="switchPoliticsTab('boxes')" class="politics-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-6 border-b-2 font-medium text-sm w-1/4 text-center hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-box-open mr-2"></i> Sandıklar
+                    </button>
+                    <button id="tab-politics-volunteers" onclick="switchPoliticsTab('volunteers')" class="politics-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-6 border-b-2 font-medium text-sm w-1/4 text-center hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-hands-helping mr-2"></i> Gönüllüler
+                    </button>
+                </nav>
+            </div>
+
+            <div class="p-6">
+                <!-- Analytics Content -->
+                <div id="politics-content-analytics" class="space-y-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg">
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Mahalle Bazlı Analiz</h3>
+                            <div class="h-64 flex items-center justify-center text-gray-500">
+                                <!-- Placeholder for Chart -->
+                                <p>Grafik alanı (Chart.js entegrasyonu yapılacak)</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg">
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Sandık Bazlı Durum</h3>
+                            <div class="h-64 flex items-center justify-center text-gray-500">
+                                <!-- Placeholder for Chart -->
+                                <p>Grafik alanı (Chart.js entegrasyonu yapılacak)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Voters Content -->
+                <div id="politics-content-voters" class="hidden">
+                    <!-- Filter Bar -->
+                    <div class="flex gap-4 mb-4">
+                        <input type="text" placeholder="Ad Soyad, TC veya Tel ile ara..." class="flex-1 rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white sm:text-sm p-2 border">
+                        <select class="rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white sm:text-sm p-2 border">
+                            <option value="">Tüm Mahalleler</option>
+                        </select>
+                        <select class="rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white sm:text-sm p-2 border">
+                            <option value="">Tüm Durumlar</option>
+                            <option value="decided">Kararlı</option>
+                            <option value="undecided">Kararsız</option>
+                            <option value="potential">Potansiyel</option>
+                            <option value="opponent">Rakip</option>
+                        </select>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700" id="politics-voters-table">
+                            <thead class="bg-gray-50 dark:bg-gray-700">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Seçmen</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">İletişim</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Lokasyon</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Durum</th>
+                                    <th scope="col" class="relative px-6 py-3"><span class="sr-only">İşlemler</span></th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                <!-- Dynamic Content -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Boxes Content -->
+                <div id="politics-content-boxes" class="hidden">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700" id="politics-boxes-table">
+                            <thead class="bg-gray-50 dark:bg-gray-700">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Sandık No</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Bölge / Okul</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Görevliler</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Seçmen Sayısı</th>
+                                    <th scope="col" class="relative px-6 py-3"><span class="sr-only">İşlemler</span></th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                <!-- Dynamic Content -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Volunteers Content -->
+                <div id="politics-content-volunteers" class="hidden">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700" id="politics-volunteers-table">
+                            <thead class="bg-gray-50 dark:bg-gray-700">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Ad Soyad</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">İletişim</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Rol</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Atanan Sandık</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Durum</th>
+                                    <th scope="col" class="relative px-6 py-3"><span class="sr-only">İşlemler</span></th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                <!-- Dynamic Content -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+<div class="p-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-8">
+        <div>
+            <h1 class="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">Billing & Revenue</h1>
+            <p class="text-gray-500 dark:text-gray-400 mt-1">Manage subscriptions, invoices, and revenue streams.</p>
+        </div>
+        <button onclick="exportBillingReport()" class="px-5 py-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 rounded-xl text-sm font-medium shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-all flex items-center">
+            <i class="fas fa-download mr-2"></i> Export Report
+        </button>
+    </div>
+
+    <!-- Revenue Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm p-6 border border-gray-100 dark:border-gray-700">
+            <div class="flex items-center justify-between mb-4">
+                <div class="p-3 bg-green-50 dark:bg-green-900/30 rounded-xl text-green-600 dark:text-green-400">
+                    <i class="fas fa-dollar-sign text-xl"></i>
+                </div>
+                <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">
+                    +12.5%
+                </span>
+            </div>
+            <h3 class="text-3xl font-bold text-gray-900 dark:text-white mb-1" id="mrr-stat">$24,500</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Monthly Recurring Revenue (MRR)</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm p-6 border border-gray-100 dark:border-gray-700">
+            <div class="flex items-center justify-between mb-4">
+                <div class="p-3 bg-purple-50 dark:bg-purple-900/30 rounded-xl text-purple-600 dark:text-purple-400">
+                    <i class="fas fa-credit-card text-xl"></i>
+                </div>
+                <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">
+                    Last 30 Days
+                </span>
+            </div>
+            <h3 class="text-3xl font-bold text-gray-900 dark:text-white mb-1" id="revenue-stat">$2,850</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">New Revenue</p>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm p-6 border border-gray-100 dark:border-gray-700">
+            <div class="flex items-center justify-between mb-4">
+                <div class="p-3 bg-red-50 dark:bg-red-900/30 rounded-xl text-red-600 dark:text-red-400">
+                    <i class="fas fa-exclamation-circle text-xl"></i>
+                </div>
+                <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400">
+                    Action Needed
+                </span>
+            </div>
+            <h3 class="text-3xl font-bold text-gray-900 dark:text-white mb-1" id="overdue-stat">3</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Overdue Invoices</p>
+        </div>
+    </div>
+
+    <!-- Recent Invoices Table -->
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden mb-8">
+        <div class="px-6 py-5 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white">Recent Transactions</h3>
+            <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 transition-colors">View All</a>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-100 dark:divide-gray-700">
+                <thead class="bg-gray-50 dark:bg-gray-900/50">
+                    <tr>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Invoice ID</th>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Tenant</th>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Amount</th>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
+                        <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Date</th>
+                        <th scope="col" class="px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100 dark:divide-gray-700" id="billing-table-body">
+                    <!-- Dynamic Rows -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

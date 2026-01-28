@@ -1,0 +1,42 @@
+<div id="view-helpdesk" class="view-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Destek Masası</h1>
+            <button onclick="showModal('helpdesk-ticket-modal')" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors">
+                <i class="fas fa-plus mr-2"></i> Yeni Destek Talebi
+            </button>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 mb-6 flex flex-wrap gap-4 items-center">
+            <div class="flex-1 min-w-[200px]">
+                <input type="text" id="helpdesk-search" placeholder="Talep no veya konu ara..." class="w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white sm:text-sm p-2 border" oninput="filterHelpdeskTickets()">
+            </div>
+            <div>
+                <select id="helpdesk-status-filter" class="rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white sm:text-sm p-2 border" onchange="filterHelpdeskTickets()">
+                    <option value="all">Tüm Durumlar</option>
+                    <option value="open">Açık</option>
+                    <option value="in_progress">İşleniyor</option>
+                    <option value="resolved">Çözüldü</option>
+                    <option value="closed">Kapalı</option>
+                </select>
+            </div>
+            <div>
+                <select id="helpdesk-priority-filter" class="rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-white sm:text-sm p-2 border" onchange="filterHelpdeskTickets()">
+                    <option value="all">Tüm Öncelikler</option>
+                    <option value="high">Yüksek</option>
+                    <option value="medium">Orta</option>
+                    <option value="low">Düşük</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Ticket List -->
+        <div class="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-md">
+            <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700" id="helpdesk-ticket-list">
+                <!-- Dynamic Content -->
+                <li class="px-4 py-4 sm:px-6 text-center text-gray-500 dark:text-gray-400">Yükleniyor...</li>
+            </ul>
+        </div>
+    </div>
+</div>
