@@ -1,0 +1,33 @@
+# Environment & Config
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules/
+vendor/
+
+# Database files
+storage/database/*.sqlite
+storage/database/*.sqlite-journal
+storage/database/*.db
+!storage/database/migrations/
+
+# Storage & Uploads
+storage/uploads/*
+!storage/uploads/.gitkeep
+storage/logs/*
+!storage/logs/.gitkeep
+storage/temp/*
+
+# Frontend build outputs
+frontend/dist/
+frontend/dist-ssr/
+frontend/.vite/
+
+# System and IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log

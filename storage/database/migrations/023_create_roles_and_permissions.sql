@@ -1,0 +1,16 @@
+CREATE TABLE IF NOT EXISTS roles (
+    id VARCHAR(36) PRIMARY KEY,
+    tenant_id VARCHAR(36) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    is_system INTEGER DEFAULT 0,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (tenant_id) REFERENCES tenants(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS role_permissions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    role_id VARCHAR(36) NOT NULL,
+    permission VARCHAR(100) NOT NULL,
+    FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE
+);

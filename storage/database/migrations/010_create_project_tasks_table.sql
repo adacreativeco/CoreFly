@@ -1,0 +1,21 @@
+CREATE TABLE project_tasks (
+    id TEXT PRIMARY KEY,
+    tenant_id TEXT NOT NULL,
+    project_id TEXT NOT NULL,
+    parent_id TEXT,
+    assignee_id TEXT,
+    created_by TEXT NOT NULL,
+    title TEXT NOT NULL,
+    description TEXT,
+    type TEXT DEFAULT 'task',
+    status TEXT DEFAULT 'todo',
+    priority TEXT DEFAULT 'medium',
+    due_date DATE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (tenant_id) REFERENCES tenants(id) ON DELETE CASCADE,
+    FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE,
+    FOREIGN KEY (parent_id) REFERENCES project_tasks(id) ON DELETE CASCADE,
+    FOREIGN KEY (assignee_id) REFERENCES users(id) ON DELETE SET NULL,
+    FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL
+);

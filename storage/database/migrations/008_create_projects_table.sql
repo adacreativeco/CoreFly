@@ -1,0 +1,20 @@
+CREATE TABLE projects (
+    id TEXT PRIMARY KEY,
+    tenant_id TEXT NOT NULL,
+    code TEXT UNIQUE,
+    name TEXT NOT NULL,
+    description TEXT,
+    type TEXT DEFAULT 'internal',
+    status TEXT DEFAULT 'planning',
+    priority TEXT DEFAULT 'medium',
+    start_date DATE,
+    end_date DATE,
+    budget REAL,
+    currency TEXT DEFAULT 'USD',
+    progress REAL DEFAULT 0,
+    created_by TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (tenant_id) REFERENCES tenants(id) ON DELETE CASCADE,
+    FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL
+);

@@ -1,0 +1,22 @@
+CREATE TABLE employees (
+    id TEXT PRIMARY KEY,
+    tenant_id TEXT NOT NULL,
+    user_id TEXT NOT NULL UNIQUE,
+    employee_number TEXT UNIQUE,
+    hire_date DATE,
+    termination_date DATE,
+    department_id TEXT,
+    position_id TEXT,
+    manager_id TEXT,
+    employment_type TEXT DEFAULT 'full_time',
+    salary REAL,
+    currency TEXT DEFAULT 'USD',
+    status TEXT DEFAULT 'active',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (tenant_id) REFERENCES tenants(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (department_id) REFERENCES departments(id) ON DELETE SET NULL,
+    FOREIGN KEY (position_id) REFERENCES positions(id) ON DELETE SET NULL,
+    FOREIGN KEY (manager_id) REFERENCES employees(id) ON DELETE SET NULL
+);
