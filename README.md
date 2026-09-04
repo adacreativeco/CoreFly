@@ -1,6 +1,11 @@
-# CoreFly - Kurumsal İntranet Sistemi
+# CoreFly (Legacy v1.0) - Kurumsal İntranet Sistemi
 
-CoreFly, şirket içi iletişimi, süreç yönetimini ve bilgi paylaşımını kolaylaştırmak için tasarlanmış kapsamlı bir intranet çözümüdür.
+> [!NOTE]
+> **ARŞİV DALI (LEGACY v1.0):**  
+> Bu sürüm CoreFly'ın ilk monolitik prototipidir ve arşiv amaçlı saklanmaktadır.  
+> Tüm özellikler, **React 18 + TypeScript + Vite** frontend, **PHP 8.2+ REST API**, **Resmi GİB E-Fatura/E-Arşiv**, **VoIP/WebRTC Sesli & Görüntülü Arama** ve **Çoklu Veritabanı (SQLite/MySQL/PostgreSQL)** desteği ile **CoreFly Enterprise v2.0** ana dalına (`main`) taşınmıştır.
+
+CoreFly, şirket içi iletişimi, süreç yönetimini ve bilgi paylaşımını kolaylaştırmak için tasarlanmış intranet çözümüdür.
 
 ## 🚀 Özellikler
 
