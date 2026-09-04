@@ -10,6 +10,7 @@
 [![Multi-DB](https://img.shields.io/badge/Databases-SQLite%20|%20MySQL%20|%20PostgreSQL-4479A1?style=for-the-badge&logo=database)](https://github.com/satlasco/CoreFly)
 [![GİB e-Fatura](https://img.shields.io/badge/GİB-e--Fatura%20%26%20e--Arşiv-red?style=for-the-badge&logo=tax)](https://gib.gov.tr)
 [![VoIP WebRTC](https://img.shields.io/badge/VoIP-Audio%20%26%20Video%20Calls-success?style=for-the-badge&logo=webrtc&logoColor=white)](https://webrtc.org)
+[![License](https://img.shields.io/badge/License-Apache%202.0-yellow.svg?style=for-the-badge&logo=apache)](LICENSE)
 
 <p align="center">
   <b>Modern şirketler, holdingler, STK'lar ve operasyonel organizasyonlar için geliştirilmiş uçtan uca çok kiracılı (multi-tenant) kurumsal kaynak planlama (ERP) ve operasyon işletim sistemi.</b>
@@ -214,5 +215,7 @@ php scripts/test_all_phases.php
 
 ## 📄 Lisans ve Telif Hakkı
 
-CoreFly Enterprise, ticari ve kurumsal kullanıma uygun olarak lisanslanmıştır.  
-© 2026 CoreFly Group. Tüm hakları saklıdır.
+Bu proje **[Apache License 2.0](LICENSE)** kapsamında lisanslanmıştır.  
+Kurumsal, ticari ve açık kaynaklı kullanıma, modifikasyon ve dağıtıma tamamen uygundur.
+
+Copyright © 2026 CoreFly Group & Satlas. Tüm hakları saklıdır.
