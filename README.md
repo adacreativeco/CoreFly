@@ -1,13 +1,18 @@
-# CoreFly Enterprise - Kurumsal Yönetim Sistemi (ERP & OperationOS)
-
 <div align="center">
+
+<p align="center">
+  <img src="docs/brand/logo-color.png" alt="CoreFly Enterprise Logo" width="160" />
+</p>
+
+# CoreFly Enterprise
+### Kurumsal Yönetim & Operasyon İşletim Sistemi (ERP & OperationOS)
 
 ![CoreFly Logo](https://img.shields.io/badge/CoreFly-Enterprise%20v2.0-blue?style=for-the-badge&logo=shield)
 [![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
 [![React](https://img.shields.io/badge/React-18.x-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![Vite](https://img.shields.io/badge/Vite-6.x-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
-[![Multi-DB](https://img.shields.io/badge/Databases-SQLite%20|%20MySQL%20|%20PostgreSQL-4479A1?style=for-the-badge&logo=database)](https://github.com/satlasco/CoreFly)
+[![Multi-DB](https://img.shields.io/badge/Databases-SQLite%20|%20MySQL%20|%20PostgreSQL-4479A1?style=for-the-badge&logo=database)](https://github.com/adacreativeco/CoreFly)
 [![GİB e-Fatura](https://img.shields.io/badge/GİB-e--Fatura%20%26%20e--Arşiv-red?style=for-the-badge&logo=tax)](https://gib.gov.tr)
 [![VoIP WebRTC](https://img.shields.io/badge/VoIP-Audio%20%26%20Video%20Calls-success?style=for-the-badge&logo=webrtc&logoColor=white)](https://webrtc.org)
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellow.svg?style=for-the-badge&logo=apache)](LICENSE)
@@ -17,6 +22,22 @@
 </p>
 
 </div>
+
+---
+
+## 🎨 Kurumsal Kimlik & Logolar (Brand Assets)
+
+CoreFly'ın resmi kurumsal kimlik materyalleri `docs/brand/` ve `frontend/public/brand/` altında yer almaktadır:
+
+| Renkli Logo (Color) | Beyaz Logo (White) | Siyah Logo (Black) |
+|:---:|:---:|:---:|
+| <img src="docs/brand/logo-color.png" width="130" alt="Renkli Logo" /> | <img src="docs/brand/logo-white.png" width="130" style="background:#111827; padding:8px; border-radius:8px;" alt="Beyaz Logo" /> | <img src="docs/brand/logo-black.png" width="130" alt="Siyah Logo" /> |
+| **Açık Tema & Dokümanlar** | **Karanlık Tema & Koyu Menü** | **Resmi Evrak & Monochrome Baskı** |
+
+- [Renkli Logo (Color)](docs/brand/logo-color.png)
+- [Beyaz Logo (White)](docs/brand/logo-white.png)
+- [Siyah Logo (Black)](docs/brand/logo-black.png)
+- [Tarayıcı Simgesi (Favicon)](frontend/public/favicon.png)
 
 ---
 
@@ -169,8 +190,11 @@ CoreFly Ön Muhasebe modülü, şirket içi tahsilat ve faturalandırmanın öte
 - Node.js 18+ ve npm
 - Composer (isteğe bağlı)
 
-### 2. Veritabanını Hazırlama
+### 2. Depoyu Klonlama ve Veritabanını Hazırlama
 ```bash
+git clone https://github.com/adacreativeco/CoreFly.git
+cd CoreFly
+
 # Migration'ları yürüt (26 migration otomatik uygulanır)
 php scripts/migrate.php
 
@@ -218,4 +242,4 @@ php scripts/test_all_phases.php
 Bu proje **[Apache License 2.0](LICENSE)** kapsamında lisanslanmıştır.  
 Kurumsal, ticari ve açık kaynaklı kullanıma, modifikasyon ve dağıtıma tamamen uygundur.
 
-Copyright © 2026 CoreFly Group & Satlas. Tüm hakları saklıdır.
+Copyright © 2026 CoreFly Group & Ada Creative Co. (satlasco). Tüm hakları saklıdır.
