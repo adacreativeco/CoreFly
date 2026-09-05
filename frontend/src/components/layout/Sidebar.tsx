@@ -107,10 +107,16 @@ export const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
     <aside className="flex flex-col w-64 bg-gray-900 text-white h-screen flex-shrink-0 select-none border-r border-gray-800 z-30 shadow-2xl lg:shadow-none">
       {/* Logo Header */}
       <div className="flex items-center justify-between px-6 h-16 border-b border-gray-800 flex-shrink-0">
-        <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center font-black text-white text-base tracking-tighter">
-            CF
-          </div>
+        <div className="flex items-center space-x-2.5">
+          <img
+            src="/brand/logo-white.png"
+            alt="CoreFly"
+            className="w-8 h-8 rounded-lg object-contain"
+            onError={(e) => {
+              // Fallback to stylized CF badge if image fails
+              (e.currentTarget as HTMLElement).style.display = 'none';
+            }}
+          />
           <span className="text-lg font-bold tracking-wider text-white">COREFLY</span>
         </div>
         <div className="flex items-center gap-1.5">

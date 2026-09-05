@@ -23,10 +23,21 @@ export const Login: React.FC = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Hesabınıza giriş yapın
+        <div className="text-center">
+          <img
+            src="/brand/logo-color.png"
+            alt="CoreFly Logo"
+            className="w-16 h-16 mx-auto mb-3 object-contain rounded-2xl shadow-md"
+            onError={(e) => {
+              (e.currentTarget as HTMLElement).style.display = 'none';
+            }}
+          />
+          <h2 className="text-center text-3xl font-extrabold text-gray-900 tracking-tight">
+            CoreFly Enterprise
           </h2>
+          <p className="mt-1 text-sm text-gray-500">
+            Kurumsal yönetim portalına giriş yapın
+          </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {error && <div className="text-red-500 text-center">{error}</div>}
