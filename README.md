@@ -242,4 +242,4 @@ php scripts/test_all_phases.php
 Bu proje **[Apache License 2.0](LICENSE)** kapsamında lisanslanmıştır.  
 Kurumsal, ticari ve açık kaynaklı kullanıma, modifikasyon ve dağıtıma tamamen uygundur.
 
-Copyright © 2026 CoreFly Group & Ada Creative Co. (satlasco). Tüm hakları saklıdır.
+Copyright © 2026 **[ADA Creative Co.](https://adacreative.co)**. Tüm hakları saklıdır.
