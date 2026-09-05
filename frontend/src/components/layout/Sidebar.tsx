@@ -29,15 +29,18 @@ import {
 } from 'lucide-react';
 import clsx from 'clsx';
 import { useAuthStore } from '@/store/authStore';
+import { useLangStore } from '@/store/langStore';
 
 interface NavChild {
   name: string;
+  key: string;
   path: string;
   icon: React.ComponentType<{ className?: string }>;
 }
 
 interface NavItem {
   name: string;
+  key: string;
   path: string;
   icon: React.ComponentType<{ className?: string }>;
   adminOnly?: boolean;
@@ -45,43 +48,45 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { name: 'Ana Sayfa', path: '/dashboard', icon: LayoutDashboard },
-  { name: 'Görevler', path: '/tasks', icon: CheckSquare },
-  { name: 'Projeler', path: '/projects', icon: FolderKanban },
-  { name: 'CRM & Satış', path: '/crm', icon: Target },
-  { name: 'Ön Muhasebe', path: '/accounting', icon: Landmark },
-  { name: 'Envanter & Stok', path: '/inventory', icon: Boxes },
+  { name: 'Ana Sayfa', key: 'nav.dashboard', path: '/dashboard', icon: LayoutDashboard },
+  { name: 'Görevler', key: 'nav.tasks', path: '/tasks', icon: CheckSquare },
+  { name: 'Projeler', key: 'nav.projects', path: '/projects', icon: FolderKanban },
+  { name: 'CRM & Satış', key: 'nav.crm', path: '/crm', icon: Target },
+  { name: 'Ön Muhasebe', key: 'nav.accounting', path: '/accounting', icon: Landmark },
+  { name: 'Envanter & Stok', key: 'nav.inventory', path: '/inventory', icon: Boxes },
   { 
     name: 'İnsan Kaynakları', 
+    key: 'nav.hr',
     path: '/hr', 
     icon: Users,
     children: [
-      { name: 'Çalışanlar', path: '/hr/employees', icon: User },
-      { name: 'Departmanlar', path: '/hr/departments', icon: Building2 },
-      { name: 'İzin Talepleri', path: '/hr/leaves', icon: CalendarCheck },
-      { name: 'Maaş & Bordro', path: '/hr/payrolls', icon: DollarSign },
+      { name: 'Çalışanlar', key: 'nav.hr.employees', path: '/hr/employees', icon: User },
+      { name: 'Departmanlar', key: 'nav.hr.departments', path: '/hr/departments', icon: Building2 },
+      { name: 'İzin Talepleri', key: 'nav.hr.leaves', path: '/hr/leaves', icon: CalendarCheck },
+      { name: 'Maaş & Bordro', key: 'nav.hr.payrolls', path: '/hr/payrolls', icon: DollarSign },
     ]
   },
-  { name: 'Saha Yönetimi', path: '/field', icon: MapPin },
-  { name: 'Bağış & Kaynak', path: '/donations', icon: Heart },
-  { name: 'Teşkilat & Seçim', path: '/politics', icon: Flag },
-  { name: 'Takvim & Etkinlikler', path: '/calendar', icon: CalendarDays },
-  { name: 'Duyurular', path: '/announcements', icon: Megaphone },
-  { name: 'Destek (Helpdesk)', path: '/helpdesk', icon: LifeBuoy },
-  { name: 'Mesajlar', path: '/messages', icon: MessageSquare },
-  { name: 'Dosyalar', path: '/files', icon: FileText },
+  { name: 'Saha Yönetimi', key: 'nav.field', path: '/field', icon: MapPin },
+  { name: 'Bağış & Kaynak', key: 'nav.donations', path: '/donations', icon: Heart },
+  { name: 'Teşkilat & Seçim', key: 'nav.politics', path: '/politics', icon: Flag },
+  { name: 'Takvim & Etkinlikler', key: 'nav.calendar', path: '/calendar', icon: CalendarDays },
+  { name: 'Duyurular', key: 'nav.announcements', path: '/announcements', icon: Megaphone },
+  { name: 'Destek (Helpdesk)', key: 'nav.helpdesk', path: '/helpdesk', icon: LifeBuoy },
+  { name: 'Mesajlar', key: 'nav.messages', path: '/messages', icon: MessageSquare },
+  { name: 'Dosyalar', key: 'nav.files', path: '/files', icon: FileText },
   { 
     name: 'Süper Admin', 
+    key: 'nav.admin',
     path: '/admin', 
     icon: ShieldCheck,
     adminOnly: true,
     children: [
-      { name: 'Müşteriler & Kiracılar', path: '/admin/tenants', icon: Building2 },
-      { name: 'Rol & Yetki Yönetimi', path: '/admin/roles', icon: ShieldCheck },
-      { name: 'Denetim Günlükleri', path: '/admin/logs', icon: ShieldAlert },
+      { name: 'Müşteriler & Kiracılar', key: 'nav.admin.tenants', path: '/admin/tenants', icon: Building2 },
+      { name: 'Rol & Yetki Yönetimi', key: 'nav.admin.roles', path: '/admin/roles', icon: ShieldCheck },
+      { name: 'Denetim Günlükleri', key: 'nav.admin.logs', path: '/admin/logs', icon: ShieldAlert },
     ]
   },
-  { name: 'Ayarlar', path: '/settings', icon: Settings },
+  { name: 'Ayarlar', key: 'nav.settings', path: '/settings', icon: Settings },
 ];
 
 interface SidebarProps {
@@ -90,6 +95,7 @@ interface SidebarProps {
 
 export const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
   const { user } = useAuthStore();
+  const { t } = useLangStore();
   const [openSubmenus, setOpenSubmenus] = useState<string[]>(['İnsan Kaynakları']);
 
   // Sadece süper admin veya admin e-postasına sahip kullanıcılara admin menüsü açık
@@ -147,7 +153,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
                 >
                   <div className="flex items-center min-w-0">
                     <item.icon className="mr-3 h-4 w-4 text-gray-400 group-hover:text-indigo-400 flex-shrink-0 transition-colors" />
-                    <span className="truncate">{item.name}</span>
+                    <span className="truncate">{t(item.key) || item.name}</span>
                   </div>
                   {openSubmenus.includes(item.name) ? (
                     <ChevronDown className="h-4 w-4 text-gray-400 flex-shrink-0" />
@@ -172,7 +178,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
                         }
                       >
                         <child.icon className="mr-2 h-3.5 w-3.5 flex-shrink-0" />
-                        <span className="truncate">{child.name}</span>
+                        <span className="truncate">{t(child.key) || child.name}</span>
                       </NavLink>
                     ))}
                   </div>
@@ -192,7 +198,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
                 }
               >
                 <item.icon className="mr-3 h-4 w-4 text-gray-400 group-hover:text-white flex-shrink-0 transition-colors" />
-                <span className="truncate">{item.name}</span>
+                <span className="truncate">{t(item.key) || item.name}</span>
               </NavLink>
             )}
           </div>

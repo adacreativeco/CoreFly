@@ -7,6 +7,10 @@
 # CoreFly Enterprise
 ### Kurumsal Yönetim & Operasyon İşletim Sistemi (ERP & OperationOS)
 
+[🇹🇷 Türkçe](README.md) | [🇬🇧 English](README.en.md)
+
+<br/>
+
 ![CoreFly Logo](https://img.shields.io/badge/CoreFly-Enterprise%20v2.0-blue?style=for-the-badge&logo=shield)
 [![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
 [![React](https://img.shields.io/badge/React-18.x-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org)

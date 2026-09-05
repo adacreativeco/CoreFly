@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useAuthStore } from '@/store/authStore';
 import { useThemeStore } from '@/store/themeStore';
+import { useLangStore } from '@/store/langStore';
 import { logout } from '@/services/authService';
 import { notificationService } from '@/services/notificationService';
 import { NotificationItem } from '@/types/notification';
@@ -14,6 +15,7 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
   const { user } = useAuthStore();
   const { theme, toggleTheme } = useThemeStore();
+  const { lang, toggleLang, t } = useLangStore();
   const navigate = useNavigate();
   const tenantId = user?.tenant_id || '';
 
@@ -128,7 +130,7 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
             onFocus={() => setIsSearchOpen(true)}
             onBlur={() => setTimeout(() => setIsSearchOpen(false), 200)}
             className="block w-full pl-9 pr-3 py-1.5 sm:py-2 border border-gray-300 dark:border-gray-700 rounded-lg leading-5 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:ring-2 focus:ring-indigo-500 text-xs sm:text-sm transition"
-            placeholder="Modül, görev veya sayfa ara..."
+            placeholder={t('header.search_placeholder')}
           />
 
           {isSearchOpen && searchResults.length > 0 && (
@@ -170,6 +172,16 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
           ) : (
             <Moon className="h-5 w-5 text-gray-600" />
           )}
+        </button>
+
+        {/* Language Switcher */}
+        <button
+          type="button"
+          onClick={toggleLang}
+          className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-xs font-bold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition select-none"
+          title={lang === 'tr' ? 'Switch to English' : 'Türkçe\'ye Geç'}
+        >
+          <span>{lang === 'tr' ? '🇹🇷 TR' : '🇬🇧 EN'}</span>
         </button>
 
         {/* Bildirim Dropdown */}
